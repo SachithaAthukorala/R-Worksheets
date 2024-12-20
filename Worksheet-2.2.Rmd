@@ -1,0 +1,217 @@
+---
+title: "Worksheet_2_Answers"
+author: '5884'
+date: "2024-12-06"
+output: html_document
+---
+
+#1
+
+##a
+```{r}
+Retirement <- read.table("Sachitha Athukorala 5884 - pensionnnaire.txt", header = T, sep = " ")
+Retirement
+```
+
+##b
+```{r}
+Retirement$retirement_date <- as.Date(Retirement$retirement_date, format = "%Y-%m-%d")
+Eligible <- subset(Retirement, retirement_date < as.Date("2015-01-01"))
+Eligible
+```
+
+
+#2
+
+##a
+```{r}
+library(xlsx)
+GoldmanSachsStock <- read.xlsx("Sachitha Athukorala 5884 - Gold.xlsx", sheetIndex = 1)
+GoldmanSachsStock
+
+```
+##b
+```{r}
+colnames(GoldmanSachsStock) <- c("Date", "High", "Low", "Volume")
+GoldmanSachsStock
+```
+##c
+```{r}
+GoldmanSachsStock$market_value <- with(GoldmanSachsStock,Volume / (High - Low))
+GoldmanSachsStock <- GoldmanSachsStock[, c(1:4, ncol(GoldmanSachsStock))]
+GoldmanSachsStock
+```
+
+
+#3
+
+##a
+```{r}
+examResults <- scan(text = "71 52 51 32 89 78 66 45 37 88 70 32 70 67 70")
+examResults
+```
+
+##b
+```{r}
+stem(examResults, scale = 2)
+```
+
+##c
+```{r}
+hist(examResults, probability = T,main = "Histogram (Probability Density)",xlab = "Mock Exam Scores",col = "skyblue",border = "white")
+```
+
+##d
+```{r}
+hist(examResults, probability = F,main = "Histogram (Frequency)",xlab = "Mock Exam Scores",col = "lightgreen",border = "white")
+```
+
+##e
+```{r}
+boxplot(examResults,main = "Boxplot of Mock Exam Results",ylab = "Scores",col = "orange",border = "brown",horizontal = T)
+```
+
+
+#4
+
+```{r}
+data("discoveries")
+discoVector <- as.vector(discoveries)
+freqTable <- table(discoVector)
+print(freqTable)
+
+proportions <- prop.table(freqTable)
+barplot(proportions,main = "Proportion Bar Chart of Discoveries",xlab = "Number of Discoveries",ylab = "Proportion",col = "skyblue",border = "white")
+```
+
+
+#5
+
+##a
+```{r}
+data("BOD")
+attach(BOD)
+```
+
+##b
+```{r}
+search()
+```
+
+##c
+```{r}
+detach(BOD)
+```
+
+
+#6
+
+##a
+```{r}
+Accidents <- read.csv("Sachitha Athukorala 5884 - Accidents.csv", header = T)
+Accidents
+```
+
+##b
+```{r}
+colnames(Accidents)[colnames(Accidents) == "Urban_or_Rural_Area"] <- "Region_Type"
+colnames(Accidents)[colnames(Accidents) == "Road_Surface_Conditions"] <- "Road_Status"
+Accidents
+```
+
+##c
+```{r}
+ID <- 1:60
+New_accidents <- cbind(ID, Accidents)
+New_accidents
+```
+
+##d
+```{r}
+Car_accidents <- subset(New_accidents, Road_Status == "Dry")
+head(Car_accidents)
+```
+
+##e
+```{r}
+sub1 <- New_accidents[c(2, 5, 7:10), ]
+print(sub1)
+```
+
+##f
+```{r}
+sub2 <- subset(New_accidents, Region_Type == "Rural" & Year > 2012)
+head(sub2)
+```
+
+
+#7
+
+##i
+
+###a
+```{r}
+data("mtcars")
+
+plot(mtcars$wt, mtcars$mpg,main = "MPG vs. WT",xlab = "Weight (wt)",ylab = "Miles per Gallon (mpg)",col = "blue",pch = 19)
+```
+
+###b
+```{r}
+plot(mtcars$mpg, mtcars$wt,main = "WT vs. MPG",xlab = "Miles per Gallon (mpg)",ylab = "Weight (wt)",col = "red", pch = 19)
+```
+
+###c
+```{r}
+plot(mtcars$disp, mtcars$wt,main = "WT vs. DISP",xlab = "Displacement (disp)",ylab = "Weight (wt)",col = "green",pch = 19)
+```
+
+###d
+```{r}
+hist(mtcars$wt,main = "Histogram of WT",xlab = "Weight (wt)",col = "lightblue",border = "white")
+
+boxplot(mtcars$wt,main = "Boxplot of WT", ylab = "Weight (wt)",col = "pink")
+```
+
+
+##ii
+```{r}
+mpgSummary <- summary(mtcars$mpg)
+cylSummary <- summary(mtcars$cyl)
+amSummary <- summary(mtcars$am)
+
+print("Summary of MPG:")
+mpgSummary
+
+print("Summary of CYL:")
+cylSummary
+
+print("Summary of AM:")
+amSummary
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
